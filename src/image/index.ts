@@ -19,7 +19,7 @@ const generateImage = () => {
     const out = fs.createWriteStream(filename);
 
     // Write "Awesome!"
-    ctx.font = "30px Impact";
+    ctx.font = "30px Arial";
     ctx.rotate(0.1);
     ctx.fillText("Awesome!", 50, 100);
 

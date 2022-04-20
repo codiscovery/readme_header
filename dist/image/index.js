@@ -17,7 +17,7 @@ var generateImage = function () {
         var filename = path.join(dirname, "../..", "/public/images/test.png");
         var out = fs.createWriteStream(filename);
         // Write "Awesome!"
-        ctx.font = "30px Impact";
+        ctx.font = "30px Arial";
         ctx.rotate(0.1);
         ctx.fillText("Awesome!", 50, 100);
         // Draw line under text
