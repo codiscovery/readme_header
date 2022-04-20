@@ -9,7 +9,7 @@ import { text } from "stream/consumers";
 const { createCanvas } = pkg;
 // const { createCanvas, loadImage } = require('canvas')
 
-const generateImage = (params) => {
+const generateImage = (params: any) => {
   return new Promise((resolve) => {
     const { title = "Sans titre" }: { title?: string } = params;
 
@@ -34,14 +34,6 @@ const generateImage = (params) => {
       WIDTH * 0.5 - titleDim.width * 0.5,
       HEIGHT * 0.5 - textHeight * 0.5
     );
-
-    // Draw line under text
-    // var text = ctx.measureText("Awesome!");
-    // ctx.strokeStyle = "rgba(0,0,0,0.5)";
-    // ctx.beginPath();
-    // ctx.lineTo(50, 102);
-    // ctx.lineTo(50 + text.width, 102);
-    // ctx.stroke();
 
     stream.pipe(out);
 

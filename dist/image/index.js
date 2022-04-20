@@ -7,9 +7,9 @@ import pkg from "canvas";
 import { fileURLToPath } from "url";
 var createCanvas = pkg.createCanvas;
 // const { createCanvas, loadImage } = require('canvas')
-var generateImage = function (_a) {
-    var _b = _a.title, title = _b === void 0 ? "Sans titre" : _b;
+var generateImage = function (params) {
     return new Promise(function (resolve) {
+        var _a = params.title, title = _a === void 0 ? "Sans titre" : _a;
         var WIDTH = 2560;
         var HEIGHT = 1440;
         var canvas = createCanvas(WIDTH, HEIGHT);
@@ -22,7 +22,7 @@ var generateImage = function (_a) {
         // Write "Awesome!"
         var textHeight = 200;
         ctx.font = "".concat(textHeight, "px Arial");
-        ctx.rotate(0.1);
+        // ctx.rotate(0.1);
         var titleDim = ctx.measureText(title);
         ctx.fillText(title, WIDTH * 0.5 - titleDim.width * 0.5, HEIGHT * 0.5 - textHeight * 0.5);
         // Draw line under text
