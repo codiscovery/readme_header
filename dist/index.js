@@ -64,7 +64,7 @@ fastify.get("/api/actions/generate-image", function (request, response) { return
     });
 }); });
 fastify.listen({
-    port: PORT || 3000,
+    port: PORT || 3001,
 }, function (err, address) {
     if (err) {
         throw err;
