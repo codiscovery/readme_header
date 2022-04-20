@@ -5,12 +5,18 @@ import path from "path";
 // @ts-ignore
 import pkg from "canvas";
 import { fileURLToPath } from "url";
+import { text } from "stream/consumers";
 const { createCanvas } = pkg;
 // const { createCanvas, loadImage } = require('canvas')
 
-const generateImage = () => {
+const generateImage = (params) => {
   return new Promise((resolve) => {
-    const canvas = createCanvas(200, 200);
+    const { title = "Sans titre" }: { title?: string } = params;
+
+    const WIDTH = 2560;
+    const HEIGHT = 1440;
+
+    const canvas = createCanvas(WIDTH, HEIGHT);
     const ctx = canvas.getContext("2d");
     const stream = canvas.createPNGStream();
     const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -19,17 +25,23 @@ const generateImage = () => {
     const out = fs.createWriteStream(filename);
 
     // Write "Awesome!"
-    ctx.font = "30px Arial";
-    ctx.rotate(0.1);
-    ctx.fillText("Awesome!", 50, 100);
+    const textHeight = 200;
+    ctx.font = `${textHeight}px Arial`;
+    // ctx.rotate(0.1);
+    const titleDim = ctx.measureText(title);
+    ctx.fillText(
+      title,
+      WIDTH * 0.5 - titleDim.width * 0.5,
+      HEIGHT * 0.5 - textHeight * 0.5
+    );
 
     // Draw line under text
-    var text = ctx.measureText("Awesome!");
-    ctx.strokeStyle = "rgba(0,0,0,0.5)";
-    ctx.beginPath();
-    ctx.lineTo(50, 102);
-    ctx.lineTo(50 + text.width, 102);
-    ctx.stroke();
+    // var text = ctx.measureText("Awesome!");
+    // ctx.strokeStyle = "rgba(0,0,0,0.5)";
+    // ctx.beginPath();
+    // ctx.lineTo(50, 102);
+    // ctx.lineTo(50 + text.width, 102);
+    // ctx.stroke();
 
     stream.pipe(out);
 

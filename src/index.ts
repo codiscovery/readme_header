@@ -15,8 +15,6 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const { PORT, NODE_ENV } = process.env;
 
-console.log("NODE_ENV", NODE_ENV);
-
 const fastify = Fastify({
   logger: {
     prettyPrint: NODE_ENV !== "production",
@@ -28,7 +26,10 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.get("/api/actions/generate-image", async (request, response) => {
-  await generateImage();
+  await generateImage({
+    // @ts-ignore
+    title: request.query.title,
+  });
   response.redirect("/images/test.png");
 });
 

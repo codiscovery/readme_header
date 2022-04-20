@@ -44,7 +44,6 @@ import generateImage from "./image/index.js";
 dotenv.config();
 var dirname = path.dirname(fileURLToPath(import.meta.url));
 var _a = process.env, PORT = _a.PORT, NODE_ENV = _a.NODE_ENV;
-console.log("NODE_ENV", NODE_ENV);
 var fastify = Fastify({
     logger: {
         prettyPrint: NODE_ENV !== "production",
@@ -56,7 +55,10 @@ fastify.register(fastifyStatic, {
 fastify.get("/api/actions/generate-image", function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, generateImage()];
+            case 0: return [4 /*yield*/, generateImage({
+                    // @ts-ignore
+                    title: request.query.title,
+                })];
             case 1:
                 _a.sent();
                 response.redirect("/images/test.png");

@@ -29,5 +29,9 @@ Pour présenter vos projets Github, utiliser ce lien qui génère une image dans
 
 ### 0.0.1
 
-- [ ] Heroku set up
-- [ ] Generate base image with title
+- [x] Heroku set up
+- [x] Generate base image with title
+
+### Inspirations
+
+Ce [tweet](https://twitter.com/ospfranco/status/1516658032784166912)
