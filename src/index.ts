@@ -13,11 +13,13 @@ dotenv.config();
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const { PORT }: { PORT?: number } = process.env;
+const { PORT, NODE_ENV } = process.env;
+
+console.log("NODE_ENV", NODE_ENV);
 
 const fastify = Fastify({
   logger: {
-    prettyPrint: true,
+    prettyPrint: NODE_ENV !== "production",
   },
 });
 

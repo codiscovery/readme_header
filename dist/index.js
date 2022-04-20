@@ -43,10 +43,11 @@ import fastifyStatic from "fastify-static";
 import generateImage from "./image/index.js";
 dotenv.config();
 var dirname = path.dirname(fileURLToPath(import.meta.url));
-var PORT = process.env.PORT;
+var _a = process.env, PORT = _a.PORT, NODE_ENV = _a.NODE_ENV;
+console.log("NODE_ENV", NODE_ENV);
 var fastify = Fastify({
     logger: {
-        prettyPrint: true,
+        prettyPrint: NODE_ENV !== "production",
     },
 });
 fastify.register(fastifyStatic, {
