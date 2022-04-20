@@ -3,7 +3,7 @@ import fs from "fs";
 // @ts-ignore
 import path from "path";
 // @ts-ignore
-import pkg from "canvas-prebuilt";
+import pkg from "canvas";
 import { fileURLToPath } from "url";
 var createCanvas = pkg.createCanvas;
 // const { createCanvas, loadImage } = require('canvas')

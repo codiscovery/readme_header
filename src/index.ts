@@ -32,7 +32,7 @@ fastify.get("/api/actions/generate-image", async (request, response) => {
 
 fastify.listen(
   {
-    port: PORT || 3001,
+    port: PORT || 3002,
   },
   (err, address) => {
     if (err) {
