@@ -29,6 +29,18 @@ fastify.get("/api/actions/generate-image", async (request, response) => {
   await generateImage({
     // @ts-ignore
     title: request.query.title,
+    // @ts-ignore
+    technologies: request.query.technologies?.split(","),
+    // @ts-ignore
+    subtitleLine1: request.query.subtitleLine1,
+    // @ts-ignore
+    subtitleLine2: request.query.subtitleLine2,
+    // @ts-ignore
+    iconName: request.query.iconName,
+    // @ts-ignore
+    iconColor: request.query.iconColor?.split(","),
+    // @ts-ignore
+    titleColor: request.query.titleColor?.split(","),
   });
   response.redirect("/images/test.png");
 });

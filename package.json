@@ -1,12 +1,13 @@
 {
   "name": "codiscovery_readme_header",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsc && npm start",
     "start": "node dist/index",
+    "deploy": "git push origin main && git push heroku main",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

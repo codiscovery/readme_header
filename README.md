@@ -20,12 +20,21 @@ Pour présenter vos projets Github, utiliser ce lien qui génère une image dans
 
 ### 0.0.3
 
-- [ ] Add gradient to title
+- [ ] Add flag to show (or not) brand name (Codiscovery)
+
+- [ ] Generate icon from URL
+- [ ] Generate icon from data image URL
+- [ ] Configurable font name
+- [ ] Auto layout center text including icon
 
 ### 0.0.2
 
-- [ ] Generate base layout (technology + title + subtitle) and rounded border
-- [ ] Add flag to show (or not) brand name (Codiscovery)
+- [x] Generate icon from Font Awesome
+- [x] Add gradient to icon
+- [x] Add gradient to title
+- [x] Generate base layout (technology + title + subtitle)
+- [x] Add rounded corner
+- [x] Add custom font
 
 ### 0.0.1
 

@@ -53,14 +53,27 @@ fastify.register(fastifyStatic, {
     root: path.join(dirname, "..", "public"),
 });
 fastify.get("/api/actions/generate-image", function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, _b, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0: return [4 /*yield*/, generateImage({
                     // @ts-ignore
                     title: request.query.title,
+                    // @ts-ignore
+                    technologies: (_a = request.query.technologies) === null || _a === void 0 ? void 0 : _a.split(","),
+                    // @ts-ignore
+                    subtitleLine1: request.query.subtitleLine1,
+                    // @ts-ignore
+                    subtitleLine2: request.query.subtitleLine2,
+                    // @ts-ignore
+                    iconName: request.query.iconName,
+                    // @ts-ignore
+                    iconColor: (_b = request.query.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
+                    // @ts-ignore
+                    titleColor: (_c = request.query.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
                 })];
             case 1:
-                _a.sent();
+                _d.sent();
                 response.redirect("/images/test.png");
                 return [2 /*return*/];
         }
