@@ -5,7 +5,7 @@ import path from "path";
 // @ts-ignore
 import pkg from "canvas";
 import { fileURLToPath } from "url";
-const { registerFont, createCanvas, loadImage } = pkg;
+const { registerFont, createCanvas, loadImage, Image } = pkg;
 // const { createCanvas, loadImage } = require('canvas')
 
 /**
@@ -86,6 +86,16 @@ function roundRect(
   }
 }
 
+const loadImageByUrl = (iconUrl: string): Promise<pkg.Image> =>
+  new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      // ctx.drawImage(img, 0, 0);
+      resolve(img as pkg.Image);
+    };
+    img.src = iconUrl;
+  });
+
 const generateImage = (params: any) => {
   return new Promise(async (resolve) => {
     const {
@@ -96,6 +106,12 @@ const generateImage = (params: any) => {
       iconName = "",
       iconColor = [],
       titleColor = [],
+      iconUrl = "",
+      iconWidth = 150,
+      iconOffsetTop = 0,
+      iconOffsetBottom = 0,
+      iconOffsetLeft = 0,
+      iconOffsetRight = 0,
     }: {
       title?: string;
       technologies?: string[];
@@ -104,6 +120,12 @@ const generateImage = (params: any) => {
       iconName: string;
       iconColor: string[];
       titleColor: string[];
+      iconUrl: string;
+      iconWidth: number;
+      iconOffsetTop: number;
+      iconOffsetBottom: number;
+      iconOffsetLeft: number;
+      iconOffsetRight: number;
     } = params;
 
     const WIDTH = 2560;
@@ -125,15 +147,9 @@ const generateImage = (params: any) => {
     iconCtx.scale(scale, scale);
 
     const stream = canvas.createPNGStream();
-    const iconStream = iconCanvas.createPNGStream();
     const dirname = path.dirname(fileURLToPath(import.meta.url));
     console.log("src/image dirname", dirname);
     const filename = path.join(dirname, "../..", `/public/images/test.png`);
-    const iconCanvasFilename = path.join(
-      dirname,
-      "../..",
-      `/public/images/test_icon.png`
-    );
     const out = fs.createWriteStream(filename);
     // const outIcon = fs.createWriteStream(iconCanvasFilename);
 
@@ -158,21 +174,25 @@ const generateImage = (params: any) => {
     // Load icon
     let iconY = 300;
     let iconH = 0;
+    let icon: pkg.Image | null = null;
     if (iconName.length) {
-      // console.log("!!!!!!!!!!!!");
-
       const iconFilename = path.join(
         dirname,
         "../..",
         `/public/icons/solid/${iconName}.svg`
         // `/public/images/test.png`
       );
+      icon = await loadImage(iconFilename);
+      // console.log("icon", icon.width);
+      // console.log("icon", icon.height);
+    }
+    if (iconUrl.length) {
+      icon = await loadImageByUrl(iconUrl);
+      console.log("icon iconUrl", icon);
+    }
+    if (icon) {
+      const iconW = iconWidth;
 
-      const icon = await loadImage(iconFilename);
-      console.log("icon", icon.width);
-      console.log("icon", icon.height);
-
-      const iconW = 150;
       iconH = (iconW / icon.width) * icon.height;
       const iconX = WIDTH * 0.5 - iconW * 0.5;
       iconY = 150;
@@ -183,55 +203,37 @@ const generateImage = (params: any) => {
       const iconGradientY = iconY;
 
       const iconGradient = iconCtx.createLinearGradient(
-        iconGradientX,
+        iconGradientX + iconOffsetLeft,
         iconGradientY,
-        iconGradientX + iconGradientW,
+        iconGradientX + iconGradientW - iconOffsetRight,
         iconGradientY
       );
 
-      // Add three color stops
-      // gradient.addColorStop(0, "red");
-      // gradient.addColorStop(1, "orange");
       iconSelectedColor.forEach((color, index, arr) =>
         iconGradient.addColorStop(index * arr.length, color)
       );
-      // gradient.addColorStop(1, "green");
 
-      // Set the fill style and draw a rectangle
-      // ctx.save();
+      // iconCtx.fillStyle = "black";
       iconCtx.fillStyle = iconGradient;
       iconCtx.fillRect(
         iconGradientX,
-        iconGradientY,
+        iconGradientY - iconOffsetTop,
         iconGradientW,
         iconGradientH
       );
       iconCtx.globalCompositeOperation = "destination-atop";
 
-      // iconCtx.globalCompositeOperation = source as GlobalCompositeOperation;
       iconCtx.drawImage(
         icon,
         iconGradientX,
-        iconGradientY,
+        iconGradientY - iconOffsetTop,
         iconGradientW,
         iconGradientH
       );
 
-      // iconStream.pipe(outIcon);
+      iconH -= iconOffsetBottom;
 
-      ctx.drawImage(iconCanvas, 0, 0, WIDTH, HEIGHT);
-      // ctx.drawImage(
-      //   icon,
-      //   iconGradientX,
-      //   iconGradientY,
-      //   iconGradientW,
-      //   iconGradientH
-      // );
-      // ctx.restore();
-      // ctx.clip();
-      // ctx.globalCompositeOperation = "source-in";
-
-      // console.log("---iconFilename", iconFilename);
+      ctx.drawImage(iconCanvas, 0, iconOffsetTop, WIDTH, HEIGHT);
     }
 
     const selectedFont = "Roboto";
@@ -268,10 +270,12 @@ const generateImage = (params: any) => {
     if (technologies.length) {
       const technoPadding = 250;
       ctx.font = `${technoHeight}px ${selectedFont}-Bold`;
-      const technoText = technologies.map((t) => `●  ${t}  `).join("") + "●";
+      let technoText = technologies.map((t) => `●  ${t}  `).join("") + "●";
+      if (technologies.length === 1) {
+        technoText = technologies[0];
+      }
       const technoDim = ctx.measureText(technoText);
       const technoX = WIDTH * 0.5 - technoDim.width * 0.5;
-      // console.log("iconY", iconY);
       technoY = iconY + iconH + technoPadding;
 
       ctx.fillText(technoText, technoX, technoY);
@@ -284,26 +288,6 @@ const generateImage = (params: any) => {
     const titleDim = ctx.measureText(title);
     const titleY = technoY + technoHeight + titlePadding;
     const titleX = WIDTH * 0.5 - titleDim.width * 0.5;
-    // ctx.globalCompositeOperation = "destination-out";
-
-    // const gradientX = 200;
-    // const gradientY = 500;
-    // const gradientW = 200;
-    // const gradientH = 100;
-    // const gradient = ctx.createLinearGradient(
-    //   gradientX,
-    //   gradientY,
-    //   gradientX + gradientW,
-    //   gradientY
-    // );
-
-    // // Add three color stops
-    // gradient.addColorStop(0, "green");
-    // gradient.addColorStop(0.5, "cyan");
-    // gradient.addColorStop(1, "green");
-
-    // // Set the fill style and draw a rectangle
-    // ctx.fillStyle = gradient;
     const gradientX = titleX;
     const gradientY = titleY;
     const gradientW = titleDim.width;
@@ -315,9 +299,6 @@ const generateImage = (params: any) => {
       gradientY
     );
 
-    // Add three color stops
-    // gradient.addColorStop(0, "red");
-    // gradient.addColorStop(1, "orange");
     titleColor.forEach((color, index, arr) =>
       gradient.addColorStop(index * arr.length, color)
     );
@@ -355,12 +336,6 @@ const generateImage = (params: any) => {
       }
     }
 
-    // outIcon.on("finish", async () => {
-    // console.log("The ICON PNG file was created");
-    // resolve(filename);
-    // const img = await loadImage(iconCanvasFilename);
-    // console.log("img", img);
-    // ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
     stream.pipe(out);
 
     out.on("finish", () => {

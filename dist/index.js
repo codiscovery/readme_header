@@ -71,6 +71,57 @@ fastify.get("/api/actions/generate-image", function (request, response) { return
                     iconColor: (_b = request.query.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
                     // @ts-ignore
                     titleColor: (_c = request.query.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
+                    // @ts-ignore
+                    iconUrl: request.query.iconUrl,
+                    // @ts-ignore
+                    iconWidth: Number(request.body.iconWidth),
+                    // @ts-ignore
+                    iconOffsetTop: request.body.iconOffsetTop,
+                    // @ts-ignore
+                    iconOffsetBottom: request.body.iconOffsetBottom,
+                    // @ts-ignore
+                    iconOffsetLeft: request.body.iconOffsetLeft,
+                    // @ts-ignore
+                    iconOffsetRight: request.body.iconOffsetRight,
+                })];
+            case 1:
+                _d.sent();
+                response.redirect("/images/test.png");
+                return [2 /*return*/];
+        }
+    });
+}); });
+fastify.post("/api/actions/generate-image", function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, _b, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
+            case 0: return [4 /*yield*/, generateImage({
+                    // @ts-ignore
+                    title: request.body.title,
+                    // @ts-ignore
+                    technologies: (_a = request.body.technologies) === null || _a === void 0 ? void 0 : _a.split(","),
+                    // @ts-ignore
+                    subtitleLine1: request.body.subtitleLine1,
+                    // @ts-ignore
+                    subtitleLine2: request.body.subtitleLine2,
+                    // @ts-ignore
+                    iconName: request.body.iconName,
+                    // @ts-ignore
+                    iconColor: (_b = request.body.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
+                    // @ts-ignore
+                    titleColor: (_c = request.body.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
+                    // @ts-ignore
+                    iconUrl: request.body.iconUrl,
+                    // @ts-ignore
+                    iconWidth: request.body.iconWidth,
+                    // @ts-ignore
+                    iconOffsetTop: request.body.iconOffsetTop,
+                    // @ts-ignore
+                    iconOffsetBottom: request.body.iconOffsetBottom,
+                    // @ts-ignore
+                    iconOffsetLeft: request.body.iconOffsetLeft,
+                    // @ts-ignore
+                    iconOffsetRight: request.body.iconOffsetRight,
                 })];
             case 1:
                 _d.sent();

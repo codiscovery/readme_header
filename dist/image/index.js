@@ -41,7 +41,7 @@ import path from "path";
 // @ts-ignore
 import pkg from "canvas";
 import { fileURLToPath } from "url";
-var registerFont = pkg.registerFont, createCanvas = pkg.createCanvas, loadImage = pkg.loadImage;
+var registerFont = pkg.registerFont, createCanvas = pkg.createCanvas, loadImage = pkg.loadImage, Image = pkg.Image;
 // const { createCanvas, loadImage } = require('canvas')
 /**
  * Draws a rounded rectangle using the current state of the canvas.
@@ -105,13 +105,23 @@ function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
         ctx.stroke();
     }
 }
+var loadImageByUrl = function (iconUrl) {
+    return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = function () {
+            // ctx.drawImage(img, 0, 0);
+            resolve(img);
+        };
+        img.src = iconUrl;
+    });
+};
 var generateImage = function (params) {
     return new Promise(function (resolve) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, title, _b, technologies, _c, subtitleLine1, _d, subtitleLine2, _e, iconName, _f, iconColor, _g, titleColor, WIDTH, HEIGHT, canvas, ctx, scale, iconCanvas, iconCtx, stream, iconStream, dirname, filename, iconCanvasFilename, out, iconSelectedColor, iconY, iconH, iconFilename, icon, iconW, iconX, iconGradientW, iconGradientH, iconGradientX, iconGradientY, iconGradient_1, selectedFont, titleFontLocation, bodyFontLocation, robotoTitleFontLocation, robotoBodyFontLocation, technoHeight, technoY, technoPadding, technoText, technoDim, technoX, textHeight, titlePadding, titleDim, titleY, titleX, gradientX, gradientY, gradientW, gradientH, gradient, subtitleLine1Height, subtitleLine1Padding, subtitleLine1Text, subtitleLine1Dim, subtitleLine1X, subtitleLine1Y, subtitleLine2Height, subtitleLine2Padding, subtitleLine2Text, subtitleLine2Dim, subtitleLine2X, subtitleLine2Y;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
+        var _a, title, _b, technologies, _c, subtitleLine1, _d, subtitleLine2, _e, iconName, _f, iconColor, _g, titleColor, _h, iconUrl, _j, iconWidth, _k, iconOffsetTop, _l, iconOffsetBottom, _m, iconOffsetLeft, _o, iconOffsetRight, WIDTH, HEIGHT, canvas, ctx, scale, iconCanvas, iconCtx, stream, dirname, filename, out, iconSelectedColor, iconY, iconH, icon, iconFilename, iconW, iconX, iconGradientW, iconGradientH, iconGradientX, iconGradientY, iconGradient_1, selectedFont, titleFontLocation, bodyFontLocation, robotoTitleFontLocation, robotoBodyFontLocation, technoHeight, technoY, technoPadding, technoText, technoDim, technoX, textHeight, titlePadding, titleDim, titleY, titleX, gradientX, gradientY, gradientW, gradientH, gradient, subtitleLine1Height, subtitleLine1Padding, subtitleLine1Text, subtitleLine1Dim, subtitleLine1X, subtitleLine1Y, subtitleLine2Height, subtitleLine2Padding, subtitleLine2Text, subtitleLine2Dim, subtitleLine2X, subtitleLine2Y;
+        return __generator(this, function (_p) {
+            switch (_p.label) {
                 case 0:
-                    _a = params.title, title = _a === void 0 ? "Sans titre" : _a, _b = params.technologies, technologies = _b === void 0 ? [] : _b, _c = params.subtitleLine1, subtitleLine1 = _c === void 0 ? "" : _c, _d = params.subtitleLine2, subtitleLine2 = _d === void 0 ? "" : _d, _e = params.iconName, iconName = _e === void 0 ? "" : _e, _f = params.iconColor, iconColor = _f === void 0 ? [] : _f, _g = params.titleColor, titleColor = _g === void 0 ? [] : _g;
+                    _a = params.title, title = _a === void 0 ? "Sans titre" : _a, _b = params.technologies, technologies = _b === void 0 ? [] : _b, _c = params.subtitleLine1, subtitleLine1 = _c === void 0 ? "" : _c, _d = params.subtitleLine2, subtitleLine2 = _d === void 0 ? "" : _d, _e = params.iconName, iconName = _e === void 0 ? "" : _e, _f = params.iconColor, iconColor = _f === void 0 ? [] : _f, _g = params.titleColor, titleColor = _g === void 0 ? [] : _g, _h = params.iconUrl, iconUrl = _h === void 0 ? "" : _h, _j = params.iconWidth, iconWidth = _j === void 0 ? 150 : _j, _k = params.iconOffsetTop, iconOffsetTop = _k === void 0 ? 0 : _k, _l = params.iconOffsetBottom, iconOffsetBottom = _l === void 0 ? 0 : _l, _m = params.iconOffsetLeft, iconOffsetLeft = _m === void 0 ? 0 : _m, _o = params.iconOffsetRight, iconOffsetRight = _o === void 0 ? 0 : _o;
                     WIDTH = 2560;
                     HEIGHT = 1440;
                     canvas = createCanvas(WIDTH, HEIGHT);
@@ -126,11 +136,9 @@ var generateImage = function (params) {
                     iconCanvas.height = HEIGHT * scale;
                     iconCtx.scale(scale, scale);
                     stream = canvas.createPNGStream();
-                    iconStream = iconCanvas.createPNGStream();
                     dirname = path.dirname(fileURLToPath(import.meta.url));
                     console.log("src/image dirname", dirname);
                     filename = path.join(dirname, "../..", "/public/images/test.png");
-                    iconCanvasFilename = path.join(dirname, "../..", "/public/images/test_icon.png");
                     out = fs.createWriteStream(filename);
                     // const outIcon = fs.createWriteStream(iconCanvasFilename);
                     // Background
@@ -148,42 +156,44 @@ var generateImage = function (params) {
                     }
                     iconY = 300;
                     iconH = 0;
+                    icon = null;
                     if (!iconName.length) return [3 /*break*/, 2];
                     iconFilename = path.join(dirname, "../..", "/public/icons/solid/".concat(iconName, ".svg")
                     // `/public/images/test.png`
                     );
                     return [4 /*yield*/, loadImage(iconFilename)];
                 case 1:
-                    icon = _h.sent();
-                    console.log("icon", icon.width);
-                    console.log("icon", icon.height);
-                    iconW = 150;
-                    iconH = (iconW / icon.width) * icon.height;
-                    iconX = WIDTH * 0.5 - iconW * 0.5;
-                    iconY = 150;
-                    iconGradientW = iconW;
-                    iconGradientH = iconH;
-                    iconGradientX = iconX;
-                    iconGradientY = iconY;
-                    iconGradient_1 = iconCtx.createLinearGradient(iconGradientX, iconGradientY, iconGradientX + iconGradientW, iconGradientY);
-                    // Add three color stops
-                    // gradient.addColorStop(0, "red");
-                    // gradient.addColorStop(1, "orange");
-                    iconSelectedColor.forEach(function (color, index, arr) {
-                        return iconGradient_1.addColorStop(index * arr.length, color);
-                    });
-                    // gradient.addColorStop(1, "green");
-                    // Set the fill style and draw a rectangle
-                    // ctx.save();
-                    iconCtx.fillStyle = iconGradient_1;
-                    iconCtx.fillRect(iconGradientX, iconGradientY, iconGradientW, iconGradientH);
-                    iconCtx.globalCompositeOperation = "destination-atop";
-                    // iconCtx.globalCompositeOperation = source as GlobalCompositeOperation;
-                    iconCtx.drawImage(icon, iconGradientX, iconGradientY, iconGradientW, iconGradientH);
-                    // iconStream.pipe(outIcon);
-                    ctx.drawImage(iconCanvas, 0, 0, WIDTH, HEIGHT);
-                    _h.label = 2;
+                    icon = _p.sent();
+                    _p.label = 2;
                 case 2:
+                    if (!iconUrl.length) return [3 /*break*/, 4];
+                    return [4 /*yield*/, loadImageByUrl(iconUrl)];
+                case 3:
+                    icon = _p.sent();
+                    console.log("icon iconUrl", icon);
+                    _p.label = 4;
+                case 4:
+                    if (icon) {
+                        iconW = iconWidth;
+                        iconH = (iconW / icon.width) * icon.height;
+                        iconX = WIDTH * 0.5 - iconW * 0.5;
+                        iconY = 150;
+                        iconGradientW = iconW;
+                        iconGradientH = iconH;
+                        iconGradientX = iconX;
+                        iconGradientY = iconY;
+                        iconGradient_1 = iconCtx.createLinearGradient(iconGradientX + iconOffsetLeft, iconGradientY, iconGradientX + iconGradientW - iconOffsetRight, iconGradientY);
+                        iconSelectedColor.forEach(function (color, index, arr) {
+                            return iconGradient_1.addColorStop(index * arr.length, color);
+                        });
+                        // iconCtx.fillStyle = "black";
+                        iconCtx.fillStyle = iconGradient_1;
+                        iconCtx.fillRect(iconGradientX, iconGradientY - iconOffsetTop, iconGradientW, iconGradientH);
+                        iconCtx.globalCompositeOperation = "destination-atop";
+                        iconCtx.drawImage(icon, iconGradientX, iconGradientY - iconOffsetTop, iconGradientW, iconGradientH);
+                        iconH -= iconOffsetBottom;
+                        ctx.drawImage(iconCanvas, 0, iconOffsetTop, WIDTH, HEIGHT);
+                    }
                     selectedFont = "Roboto";
                     titleFontLocation = path.join(dirname, "../..", "/public/fonts/Montserrat/Montserrat-Bold.ttf");
                     bodyFontLocation = path.join(dirname, "../..", "/public/fonts/Montserrat/Montserrat-Regular.ttf");
@@ -200,9 +210,11 @@ var generateImage = function (params) {
                         technoPadding = 250;
                         ctx.font = "".concat(technoHeight, "px ").concat(selectedFont, "-Bold");
                         technoText = technologies.map(function (t) { return "\u25CF  ".concat(t, "  "); }).join("") + "●";
+                        if (technologies.length === 1) {
+                            technoText = technologies[0];
+                        }
                         technoDim = ctx.measureText(technoText);
                         technoX = WIDTH * 0.5 - technoDim.width * 0.5;
-                        // console.log("iconY", iconY);
                         technoY = iconY + iconH + technoPadding;
                         ctx.fillText(technoText, technoX, technoY);
                     }
@@ -217,9 +229,6 @@ var generateImage = function (params) {
                     gradientW = titleDim.width;
                     gradientH = textHeight;
                     gradient = ctx.createLinearGradient(gradientX, gradientY, gradientX + gradientW, gradientY);
-                    // Add three color stops
-                    // gradient.addColorStop(0, "red");
-                    // gradient.addColorStop(1, "orange");
                     titleColor.forEach(function (color, index, arr) {
                         return gradient.addColorStop(index * arr.length, color);
                     });
@@ -251,12 +260,6 @@ var generateImage = function (params) {
                             ctx.fillText(subtitleLine2Text, subtitleLine2X, subtitleLine2Y);
                         }
                     }
-                    // outIcon.on("finish", async () => {
-                    // console.log("The ICON PNG file was created");
-                    // resolve(filename);
-                    // const img = await loadImage(iconCanvasFilename);
-                    // console.log("img", img);
-                    // ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
                     stream.pipe(out);
                     out.on("finish", function () {
                         console.log("The PNG file was created");

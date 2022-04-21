@@ -8,24 +8,26 @@ Pour présenter vos projets Github, utiliser ce lien qui génère une image dans
 
 ## Roadmap
 
-### 0.0.5
+### 0.0.6
 
 - [ ] Upload image to Cloudinary
 
-### 0.0.4
+### 0.0.5
 
 - [ ] Caching
   - [ ] Generate hash from parameters
   - [ ] Save image name as hash (so it will reload it from cache)
 
-### 0.0.3
+### 0.0.4
 
 - [ ] Add flag to show (or not) brand name (Codiscovery)
-
-- [ ] Generate icon from URL
 - [ ] Generate icon from data image URL
 - [ ] Configurable font name
 - [ ] Auto layout center text including icon
+
+### 0.0.3
+
+- [x] Generate icon from URL
 
 ### 0.0.2
 
