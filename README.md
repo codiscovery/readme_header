@@ -1,6 +1,6 @@
 # Readme image generator
 
-!(header)[https://codiscovery-readme-header.herokuapp.com/api/actions/generate-image?titleColor=random&iconName=random&title=README Header Image&subtitleLine1=This image will be regenerated on every refresh. Try it =)&subtitleLine2=Cette image sera regénérée à chaque chargement. Essaye :)&technologies=Fastify,Canvas]
+![header](https://codiscovery-readme-header.herokuapp.com/api/actions/generate-image?titleColor=random&iconName=random&title=README Header Image&subtitleLine1=This image will be regenerated on every refresh. Try it =)&subtitleLine2=Cette image sera regénérée à chaque chargement. Essaye :)&technologies=Fastify,Canvas)
 
 Pour présenter vos projets Github, utiliser un lien qui génère une image dans votre README
 
