@@ -29,6 +29,7 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 - [ ] Add flag to show (or not) brand name (Codiscovery)
 - [ ] Configurable font name
 - [ ] Fixed layout sizes
+- [ ] Fix : On heroku, font is not loaded
 
 ## Changelog
 
