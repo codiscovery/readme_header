@@ -17,13 +17,18 @@ Pour présenter vos projets Github, utiliser ce lien qui génère une image dans
 - [ ] Caching
   - [ ] Generate hash from parameters
   - [ ] Save image name as hash (so it will reload it from cache)
+- [ ] Auto layout center text including icon
 
 ### 0.0.4
 
+- [x] Scale up for smooth render
+- [ ] Random gradient possibility (for demo purpose)
+- [ ] Random icon possibility (for demo purpose)
 - [ ] Add flag to show (or not) brand name (Codiscovery)
-- [ ] Generate icon from data image URL
 - [ ] Configurable font name
-- [ ] Auto layout center text including icon
+- [ ] Fixed layout sizes
+
+## Changelog
 
 ### 0.0.3
 
@@ -43,6 +48,6 @@ Pour présenter vos projets Github, utiliser ce lien qui génère une image dans
 - [x] Heroku set up
 - [x] Generate base image with title
 
-### Inspirations
+## Inspirations
 
 Ce [tweet](https://twitter.com/ospfranco/status/1516658032784166912)

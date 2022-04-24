@@ -1,6 +1,6 @@
 {
   "name": "codiscovery_readme_header",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -17,7 +17,9 @@
     "canvas": "^2.9.1",
     "dotenv": "^16.0.0",
     "fastify": "^3.28.0",
-    "fastify-static": "^4.6.1"
+    "fastify-static": "^4.6.1",
+    "glob": "^8.0.1",
+    "glob-promise": "^4.2.2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",

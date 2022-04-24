@@ -52,84 +52,84 @@ var fastify = Fastify({
 fastify.register(fastifyStatic, {
     root: path.join(dirname, "..", "public"),
 });
-fastify.get("/api/actions/generate-image", function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+var generateImageController = function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var key, params;
     var _a, _b, _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
-            case 0: return [4 /*yield*/, generateImage({
-                    // @ts-ignore
-                    title: request.query.title,
-                    // @ts-ignore
-                    technologies: (_a = request.query.technologies) === null || _a === void 0 ? void 0 : _a.split(","),
-                    // @ts-ignore
-                    subtitleLine1: request.query.subtitleLine1,
-                    // @ts-ignore
-                    subtitleLine2: request.query.subtitleLine2,
-                    // @ts-ignore
-                    iconName: request.query.iconName,
-                    // @ts-ignore
-                    iconColor: (_b = request.query.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
-                    // @ts-ignore
-                    titleColor: (_c = request.query.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
-                    // @ts-ignore
-                    iconUrl: request.query.iconUrl,
-                    // @ts-ignore
-                    iconWidth: Number(request.body.iconWidth),
-                    // @ts-ignore
-                    iconOffsetTop: request.body.iconOffsetTop,
-                    // @ts-ignore
-                    iconOffsetBottom: request.body.iconOffsetBottom,
-                    // @ts-ignore
-                    iconOffsetLeft: request.body.iconOffsetLeft,
-                    // @ts-ignore
-                    iconOffsetRight: request.body.iconOffsetRight,
-                })];
+            case 0:
+                key = request.method === "POST" ? "body" : "query";
+                params = request[key];
+                return [4 /*yield*/, generateImage({
+                        // @ts-ignore
+                        title: params.title,
+                        // @ts-ignore
+                        technologies: (_a = params.technologies) === null || _a === void 0 ? void 0 : _a.split(","),
+                        // @ts-ignore
+                        subtitleLine1: params.subtitleLine1,
+                        // @ts-ignore
+                        subtitleLine2: params.subtitleLine2,
+                        // @ts-ignore
+                        iconName: params.iconName,
+                        // @ts-ignore
+                        iconColor: (_b = params.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
+                        // @ts-ignore
+                        titleColor: (_c = params.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
+                        // @ts-ignore
+                        iconUrl: params.iconUrl,
+                        // @ts-ignore
+                        iconWidth: params.iconWidth ? Number(params.iconWidth) : undefined,
+                        // @ts-ignore
+                        iconOffsetTop: params.iconOffsetTop,
+                        // @ts-ignore
+                        iconOffsetBottom: params.iconOffsetBottom,
+                        // @ts-ignore
+                        iconOffsetLeft: params.iconOffsetLeft,
+                        // @ts-ignore
+                        iconOffsetRight: params.iconOffsetRight,
+                    })];
             case 1:
                 _d.sent();
                 response.redirect("/images/test.png");
                 return [2 /*return*/];
         }
     });
-}); });
-fastify.post("/api/actions/generate-image", function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, _b, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
-            case 0: return [4 /*yield*/, generateImage({
-                    // @ts-ignore
-                    title: request.body.title,
-                    // @ts-ignore
-                    technologies: (_a = request.body.technologies) === null || _a === void 0 ? void 0 : _a.split(","),
-                    // @ts-ignore
-                    subtitleLine1: request.body.subtitleLine1,
-                    // @ts-ignore
-                    subtitleLine2: request.body.subtitleLine2,
-                    // @ts-ignore
-                    iconName: request.body.iconName,
-                    // @ts-ignore
-                    iconColor: (_b = request.body.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
-                    // @ts-ignore
-                    titleColor: (_c = request.body.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
-                    // @ts-ignore
-                    iconUrl: request.body.iconUrl,
-                    // @ts-ignore
-                    iconWidth: request.body.iconWidth,
-                    // @ts-ignore
-                    iconOffsetTop: request.body.iconOffsetTop,
-                    // @ts-ignore
-                    iconOffsetBottom: request.body.iconOffsetBottom,
-                    // @ts-ignore
-                    iconOffsetLeft: request.body.iconOffsetLeft,
-                    // @ts-ignore
-                    iconOffsetRight: request.body.iconOffsetRight,
-                })];
-            case 1:
-                _d.sent();
-                response.redirect("/images/test.png");
-                return [2 /*return*/];
-        }
-    });
-}); });
+}); };
+fastify.get("/api/actions/generate-image", generateImageController);
+fastify.post("/api/actions/generate-image", generateImageController);
+// fastify.post("/api/actions/generate-image", async (request, response) => {
+//   await generateImage({
+//     // @ts-ignore
+//     title: request.body.title,
+//     // @ts-ignore
+//     technologies: request.body.technologies?.split(","),
+//     // @ts-ignore
+//     subtitleLine1: request.body.subtitleLine1,
+//     // @ts-ignore
+//     subtitleLine2: request.body.subtitleLine2,
+//     // @ts-ignore
+//     iconName: request.body.iconName,
+//     // @ts-ignore
+//     iconColor: request.body.iconColor?.split(","),
+//     // @ts-ignore
+//     titleColor: request.body.titleColor?.split(","),
+//     // @ts-ignore
+//     iconUrl: request.body.iconUrl,
+//     // @ts-ignore
+//     iconWidth: request.body.iconWidth
+//       ? Number(request.body.iconWidth)
+//       : undefined,
+//     // @ts-ignore
+//     iconOffsetTop: request.body.iconOffsetTop,
+//     // @ts-ignore
+//     iconOffsetBottom: request.body.iconOffsetBottom,
+//     // @ts-ignore
+//     iconOffsetLeft: request.body.iconOffsetLeft,
+//     // @ts-ignore
+//     iconOffsetRight: request.body.iconOffsetRight,
+//   });
+//   response.redirect("/images/test.png");
+// });
 fastify.listen({
     port: PORT || 3002,
 }, function (err, address) {
