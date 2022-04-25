@@ -6,7 +6,7 @@ var registerFont = pkg.registerFont;
 var getFontName = function (name) {
     if (name === void 0) { name = ""; }
     var fontName = "lato";
-    if (name.length === 0 || name === "random") {
+    if (name === "random") {
         var fontNames = Object.keys(fonts);
         var randomFontIndex = Math.floor(Math.random() * fontNames.length);
         fontName = fontNames[randomFontIndex];
@@ -18,7 +18,6 @@ var getFontName = function (name) {
 };
 var getFont = function (name) {
     var fontName = getFontName(name);
-    console.log("!!!!!!!! image/getFont fontName", fontName);
     var dirname = path.dirname(fileURLToPath(import.meta.url));
     var bodyFontLocation = path.join(dirname, "../..", "/public/fonts/".concat(fontName, "/").concat(fonts[fontName][0], ".ttf"));
     var titleFontLocation = path.join(dirname, "../..", "/public/fonts/".concat(fontName, "/").concat(fonts[fontName][1], ".ttf"));

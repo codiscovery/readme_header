@@ -26,11 +26,13 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 - [x] Scale up for smooth render
 - [x] Random gradient possibility (for demo purpose)
 - [x] Random icon possibility (for demo purpose)
-- [ ] Fix : On heroku, font is not loaded
 - [x] Configurable font name
 - [x] Random font possibility
 - [ ] Add flag to show (or not) brand name (Codiscovery)
 - [ ] Fixed layout sizes
+
+- [x] Fix: On heroku, custom font is not loaded
+- [ ] Fix: Random font only at startup. Try registering all fonts then randomize `ctx.font` call
 
 ## Changelog
 
