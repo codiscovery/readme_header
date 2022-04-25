@@ -7,7 +7,7 @@ const { registerFont } = pkg;
 
 const getFontName = (name: string = "") => {
   let fontName = "lato";
-  if (name.length === 0 || name === "random") {
+  if (name === "random") {
     const fontNames = Object.keys(fonts);
     const randomFontIndex = Math.floor(Math.random() * fontNames.length);
     fontName = fontNames[randomFontIndex];
