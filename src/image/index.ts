@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 const { registerFont, loadImage } = pkg;
 
 import getCanvas from "./getCanvas.js";
+import getFont from "./getFont.js";
 import drawRoundRect from "./drawRoundRect.js";
 import loadImageByUrl from "./loadImageByUrl.js";
 import getRandomIcon from "./getRandomIcon.js";
@@ -22,26 +23,26 @@ const generateImage = (params: any) => {
       subtitleLine1 = "",
       subtitleLine2 = "",
       iconColor = [],
-
       iconUrl = "",
       iconWidth = 80,
       iconOffsetTop = 0,
       iconOffsetBottom = 0,
       iconOffsetLeft = 0,
       iconOffsetRight = 0,
+      fontName = "",
     }: {
       title?: string;
       technologies?: string[];
       subtitleLine1: string;
       subtitleLine2: string;
       iconColor: string[];
-
       iconUrl: string;
       iconWidth: number;
       iconOffsetTop: number;
       iconOffsetBottom: number;
       iconOffsetLeft: number;
       iconOffsetRight: number;
+      fontName: string;
     } = params;
 
     let {
@@ -55,6 +56,8 @@ const generateImage = (params: any) => {
     // const HEIGHT = 160;
     const WIDTH = 1280;
     const HEIGHT = 640;
+
+    getFont(fontName);
 
     const { canvas, ctx } = getCanvas({
       width: WIDTH,
@@ -161,32 +164,31 @@ const generateImage = (params: any) => {
       ctx.drawImage(iconCanvas, 0, iconOffsetTop, WIDTH, HEIGHT);
     }
 
-    const selectedFont = "Roboto";
-
-    const titleFontLocation = path.join(
-      dirname,
-      "../..",
-      "/public/fonts/Montserrat/Montserrat-Bold.ttf"
-    );
-    const bodyFontLocation = path.join(
-      dirname,
-      "../..",
-      "/public/fonts/Montserrat/Montserrat-Regular.ttf"
-    );
-    registerFont(bodyFontLocation, { family: "Montserrat" });
-    registerFont(titleFontLocation, { family: "Montserrat-Bold" });
-    const robotoTitleFontLocation = path.join(
-      dirname,
-      "../..",
-      "/public/fonts/Roboto/Roboto-Bold.ttf"
-    );
-    const robotoBodyFontLocation = path.join(
-      dirname,
-      "../..",
-      "/public/fonts/Roboto/Roboto-Medium.ttf"
-    );
-    registerFont(robotoBodyFontLocation, { family: "Roboto" });
-    registerFont(robotoTitleFontLocation, { family: "Roboto-Bold" });
+    // const titleFontLocation = path.join(
+    //   dirname,
+    //   "../..",
+    //   "/public/fonts/Montserrat/Montserrat-Bold.ttf"
+    // );
+    // const bodyFontLocation = path.join(
+    //   dirname,
+    //   "../..",
+    //   "/public/fonts/Montserrat/Montserrat-Regular.ttf"
+    // );
+    // registerFont(bodyFontLocation, { family: "Montserrat" });
+    // registerFont(titleFontLocation, { family: "Montserrat-Bold" });
+    // const robotoTitleFontLocation = path.join(
+    //   dirname,
+    //   "../..",
+    //   "/public/fonts/roboto/Roboto-Bold.ttf"
+    // );
+    // const robotoBodyFontLocation = path.join(
+    //   dirname,
+    //   "../..",
+    //   "/public/fonts/roboto/Roboto-Medium.ttf"
+    // );
+    // console.log("robotoBodyFontLocation", robotoBodyFontLocation);
+    // registerFont(robotoBodyFontLocation, { family: "body" });
+    // registerFont(robotoTitleFontLocation, { family: "title" });
 
     ctx.fillStyle = "black";
     // Technology
@@ -194,7 +196,7 @@ const generateImage = (params: any) => {
     let technoY = 0;
     if (technologies.length) {
       const technoPadding = 120;
-      ctx.font = `${technoHeight}px ${selectedFont}-Bold`;
+      ctx.font = `${technoHeight}px title`;
       let technoText = technologies.map((t) => `●  ${t}  `).join("") + "●";
       if (technologies.length === 1) {
         technoText = technologies[0];
@@ -208,7 +210,7 @@ const generateImage = (params: any) => {
     // Title
     const textHeight = 100;
     const titlePadding = 120;
-    ctx.font = `${textHeight}px ${selectedFont}-Bold`;
+    ctx.font = `${textHeight}px title`;
     // ctx.rotate(0.1);
     const titleDim = ctx.measureText(title);
     const titleY = technoY + technoHeight + titlePadding;
@@ -242,7 +244,7 @@ const generateImage = (params: any) => {
     if (subtitleLine1.length) {
       const subtitleLine1Height = 20;
       const subtitleLine1Padding = 24;
-      ctx.font = `${subtitleLine1Height}px ${selectedFont}`;
+      ctx.font = `${subtitleLine1Height}px body`;
       const subtitleLine1Text = subtitleLine1;
       const subtitleLine1Dim = ctx.measureText(subtitleLine1Text);
       const subtitleLine1X = WIDTH * 0.5 - subtitleLine1Dim.width * 0.5;
@@ -251,7 +253,7 @@ const generateImage = (params: any) => {
       if (subtitleLine2.length) {
         const subtitleLine2Height = 20;
         const subtitleLine2Padding = 8;
-        ctx.font = `${subtitleLine2Height}px ${selectedFont}`;
+        ctx.font = `${subtitleLine2Height}px body`;
         const subtitleLine2Text = subtitleLine2;
         const subtitleLine2Dim = ctx.measureText(subtitleLine2Text);
         const subtitleLine2X = WIDTH * 0.5 - subtitleLine2Dim.width * 0.5;

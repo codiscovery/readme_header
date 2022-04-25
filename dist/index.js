@@ -87,6 +87,8 @@ var generateImageController = function (request, response) { return __awaiter(vo
                         iconOffsetLeft: params.iconOffsetLeft,
                         // @ts-ignore
                         iconOffsetRight: params.iconOffsetRight,
+                        // @ts-ignore
+                        fontName: params.fontName,
                     })];
             case 1:
                 _d.sent();
@@ -97,39 +99,6 @@ var generateImageController = function (request, response) { return __awaiter(vo
 }); };
 fastify.get("/api/actions/generate-image", generateImageController);
 fastify.post("/api/actions/generate-image", generateImageController);
-// fastify.post("/api/actions/generate-image", async (request, response) => {
-//   await generateImage({
-//     // @ts-ignore
-//     title: request.body.title,
-//     // @ts-ignore
-//     technologies: request.body.technologies?.split(","),
-//     // @ts-ignore
-//     subtitleLine1: request.body.subtitleLine1,
-//     // @ts-ignore
-//     subtitleLine2: request.body.subtitleLine2,
-//     // @ts-ignore
-//     iconName: request.body.iconName,
-//     // @ts-ignore
-//     iconColor: request.body.iconColor?.split(","),
-//     // @ts-ignore
-//     titleColor: request.body.titleColor?.split(","),
-//     // @ts-ignore
-//     iconUrl: request.body.iconUrl,
-//     // @ts-ignore
-//     iconWidth: request.body.iconWidth
-//       ? Number(request.body.iconWidth)
-//       : undefined,
-//     // @ts-ignore
-//     iconOffsetTop: request.body.iconOffsetTop,
-//     // @ts-ignore
-//     iconOffsetBottom: request.body.iconOffsetBottom,
-//     // @ts-ignore
-//     iconOffsetLeft: request.body.iconOffsetLeft,
-//     // @ts-ignore
-//     iconOffsetRight: request.body.iconOffsetRight,
-//   });
-//   response.redirect("/images/test.png");
-// });
 fastify.listen({
     port: PORT || 3002,
 }, function (err, address) {

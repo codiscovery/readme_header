@@ -43,6 +43,7 @@ import pkg from "canvas";
 import { fileURLToPath } from "url";
 var registerFont = pkg.registerFont, loadImage = pkg.loadImage;
 import getCanvas from "./getCanvas.js";
+import getFont from "./getFont.js";
 import drawRoundRect from "./drawRoundRect.js";
 import loadImageByUrl from "./loadImageByUrl.js";
 import getRandomIcon from "./getRandomIcon.js";
@@ -50,18 +51,19 @@ import getRandomColor from "./getRandomIconColor.js";
 import colors from "./colors.js";
 var generateImage = function (params) {
     return new Promise(function (resolve) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, title, _b, technologies, _c, subtitleLine1, _d, subtitleLine2, _e, iconColor, _f, iconUrl, _g, iconWidth, _h, iconOffsetTop, _j, iconOffsetBottom, _k, iconOffsetLeft, _l, iconOffsetRight, _m, iconName, _o, titleColor, WIDTH, HEIGHT, _p, canvas, ctx, cnv, iconCanvas, iconCtx, stream, dirname, filename, out, iconSelectedColor, iconY, iconH, icon, iconFilename, iconW, iconX, iconGradientW, iconGradientH, iconGradientX, iconGradientY, iconGradient_1, selectedFont, titleFontLocation, bodyFontLocation, robotoTitleFontLocation, robotoBodyFontLocation, technoHeight, technoY, technoPadding, technoText, technoDim, technoX, textHeight, titlePadding, titleDim, titleY, titleX, gradientX, gradientY, gradientW, gradientH, gradient, subtitleLine1Height, subtitleLine1Padding, subtitleLine1Text, subtitleLine1Dim, subtitleLine1X, subtitleLine1Y, subtitleLine2Height, subtitleLine2Padding, subtitleLine2Text, subtitleLine2Dim, subtitleLine2X, subtitleLine2Y;
-        return __generator(this, function (_q) {
-            switch (_q.label) {
+        var _a, title, _b, technologies, _c, subtitleLine1, _d, subtitleLine2, _e, iconColor, _f, iconUrl, _g, iconWidth, _h, iconOffsetTop, _j, iconOffsetBottom, _k, iconOffsetLeft, _l, iconOffsetRight, _m, fontName, _o, iconName, _p, titleColor, WIDTH, HEIGHT, _q, canvas, ctx, cnv, iconCanvas, iconCtx, stream, dirname, filename, out, iconSelectedColor, iconY, iconH, icon, iconFilename, iconW, iconX, iconGradientW, iconGradientH, iconGradientX, iconGradientY, iconGradient_1, technoHeight, technoY, technoPadding, technoText, technoDim, technoX, textHeight, titlePadding, titleDim, titleY, titleX, gradientX, gradientY, gradientW, gradientH, gradient, subtitleLine1Height, subtitleLine1Padding, subtitleLine1Text, subtitleLine1Dim, subtitleLine1X, subtitleLine1Y, subtitleLine2Height, subtitleLine2Padding, subtitleLine2Text, subtitleLine2Dim, subtitleLine2X, subtitleLine2Y;
+        return __generator(this, function (_r) {
+            switch (_r.label) {
                 case 0:
-                    _a = params.title, title = _a === void 0 ? "Sans titre" : _a, _b = params.technologies, technologies = _b === void 0 ? [] : _b, _c = params.subtitleLine1, subtitleLine1 = _c === void 0 ? "" : _c, _d = params.subtitleLine2, subtitleLine2 = _d === void 0 ? "" : _d, _e = params.iconColor, iconColor = _e === void 0 ? [] : _e, _f = params.iconUrl, iconUrl = _f === void 0 ? "" : _f, _g = params.iconWidth, iconWidth = _g === void 0 ? 80 : _g, _h = params.iconOffsetTop, iconOffsetTop = _h === void 0 ? 0 : _h, _j = params.iconOffsetBottom, iconOffsetBottom = _j === void 0 ? 0 : _j, _k = params.iconOffsetLeft, iconOffsetLeft = _k === void 0 ? 0 : _k, _l = params.iconOffsetRight, iconOffsetRight = _l === void 0 ? 0 : _l;
-                    _m = params.iconName, iconName = _m === void 0 ? "" : _m, _o = params.titleColor, titleColor = _o === void 0 ? [] : _o;
+                    _a = params.title, title = _a === void 0 ? "Sans titre" : _a, _b = params.technologies, technologies = _b === void 0 ? [] : _b, _c = params.subtitleLine1, subtitleLine1 = _c === void 0 ? "" : _c, _d = params.subtitleLine2, subtitleLine2 = _d === void 0 ? "" : _d, _e = params.iconColor, iconColor = _e === void 0 ? [] : _e, _f = params.iconUrl, iconUrl = _f === void 0 ? "" : _f, _g = params.iconWidth, iconWidth = _g === void 0 ? 80 : _g, _h = params.iconOffsetTop, iconOffsetTop = _h === void 0 ? 0 : _h, _j = params.iconOffsetBottom, iconOffsetBottom = _j === void 0 ? 0 : _j, _k = params.iconOffsetLeft, iconOffsetLeft = _k === void 0 ? 0 : _k, _l = params.iconOffsetRight, iconOffsetRight = _l === void 0 ? 0 : _l, _m = params.fontName, fontName = _m === void 0 ? "" : _m;
+                    _o = params.iconName, iconName = _o === void 0 ? "" : _o, _p = params.titleColor, titleColor = _p === void 0 ? [] : _p;
                     WIDTH = 1280;
                     HEIGHT = 640;
-                    _p = getCanvas({
+                    getFont(fontName);
+                    _q = getCanvas({
                         width: WIDTH,
                         height: HEIGHT,
-                    }), canvas = _p.canvas, ctx = _p.ctx;
+                    }), canvas = _q.canvas, ctx = _q.ctx;
                     cnv = getCanvas({
                         width: WIDTH,
                         height: HEIGHT,
@@ -98,20 +100,20 @@ var generateImage = function (params) {
                     if (!(iconName === "random")) return [3 /*break*/, 2];
                     return [4 /*yield*/, getRandomIcon()];
                 case 1:
-                    iconName = _q.sent();
-                    _q.label = 2;
+                    iconName = _r.sent();
+                    _r.label = 2;
                 case 2:
                     iconFilename = path.join(dirname, "../..", "/public/icons/solid/".concat(iconName, ".svg"));
                     return [4 /*yield*/, loadImage(iconFilename)];
                 case 3:
-                    icon = _q.sent();
-                    _q.label = 4;
+                    icon = _r.sent();
+                    _r.label = 4;
                 case 4:
                     if (!iconUrl.length) return [3 /*break*/, 6];
                     return [4 /*yield*/, loadImageByUrl(iconUrl)];
                 case 5:
-                    icon = _q.sent();
-                    _q.label = 6;
+                    icon = _r.sent();
+                    _r.label = 6;
                 case 6:
                     if (icon) {
                         iconW = iconWidth;
@@ -134,21 +136,37 @@ var generateImage = function (params) {
                         iconH -= iconOffsetBottom;
                         ctx.drawImage(iconCanvas, 0, iconOffsetTop, WIDTH, HEIGHT);
                     }
-                    selectedFont = "Roboto";
-                    titleFontLocation = path.join(dirname, "../..", "/public/fonts/Montserrat/Montserrat-Bold.ttf");
-                    bodyFontLocation = path.join(dirname, "../..", "/public/fonts/Montserrat/Montserrat-Regular.ttf");
-                    registerFont(bodyFontLocation, { family: "Montserrat" });
-                    registerFont(titleFontLocation, { family: "Montserrat-Bold" });
-                    robotoTitleFontLocation = path.join(dirname, "../..", "/public/fonts/Roboto/Roboto-Bold.ttf");
-                    robotoBodyFontLocation = path.join(dirname, "../..", "/public/fonts/Roboto/Roboto-Medium.ttf");
-                    registerFont(robotoBodyFontLocation, { family: "Roboto" });
-                    registerFont(robotoTitleFontLocation, { family: "Roboto-Bold" });
+                    // const titleFontLocation = path.join(
+                    //   dirname,
+                    //   "../..",
+                    //   "/public/fonts/Montserrat/Montserrat-Bold.ttf"
+                    // );
+                    // const bodyFontLocation = path.join(
+                    //   dirname,
+                    //   "../..",
+                    //   "/public/fonts/Montserrat/Montserrat-Regular.ttf"
+                    // );
+                    // registerFont(bodyFontLocation, { family: "Montserrat" });
+                    // registerFont(titleFontLocation, { family: "Montserrat-Bold" });
+                    // const robotoTitleFontLocation = path.join(
+                    //   dirname,
+                    //   "../..",
+                    //   "/public/fonts/roboto/Roboto-Bold.ttf"
+                    // );
+                    // const robotoBodyFontLocation = path.join(
+                    //   dirname,
+                    //   "../..",
+                    //   "/public/fonts/roboto/Roboto-Medium.ttf"
+                    // );
+                    // console.log("robotoBodyFontLocation", robotoBodyFontLocation);
+                    // registerFont(robotoBodyFontLocation, { family: "body" });
+                    // registerFont(robotoTitleFontLocation, { family: "title" });
                     ctx.fillStyle = "black";
                     technoHeight = 36;
                     technoY = 0;
                     if (technologies.length) {
                         technoPadding = 120;
-                        ctx.font = "".concat(technoHeight, "px ").concat(selectedFont, "-Bold");
+                        ctx.font = "".concat(technoHeight, "px title");
                         technoText = technologies.map(function (t) { return "\u25CF  ".concat(t, "  "); }).join("") + "●";
                         if (technologies.length === 1) {
                             technoText = technologies[0];
@@ -160,7 +178,7 @@ var generateImage = function (params) {
                     }
                     textHeight = 100;
                     titlePadding = 120;
-                    ctx.font = "".concat(textHeight, "px ").concat(selectedFont, "-Bold");
+                    ctx.font = "".concat(textHeight, "px title");
                     titleDim = ctx.measureText(title);
                     titleY = technoY + technoHeight + titlePadding;
                     titleX = WIDTH * 0.5 - titleDim.width * 0.5;
@@ -183,7 +201,7 @@ var generateImage = function (params) {
                     if (subtitleLine1.length) {
                         subtitleLine1Height = 20;
                         subtitleLine1Padding = 24;
-                        ctx.font = "".concat(subtitleLine1Height, "px ").concat(selectedFont);
+                        ctx.font = "".concat(subtitleLine1Height, "px body");
                         subtitleLine1Text = subtitleLine1;
                         subtitleLine1Dim = ctx.measureText(subtitleLine1Text);
                         subtitleLine1X = WIDTH * 0.5 - subtitleLine1Dim.width * 0.5;
@@ -192,7 +210,7 @@ var generateImage = function (params) {
                         if (subtitleLine2.length) {
                             subtitleLine2Height = 20;
                             subtitleLine2Padding = 8;
-                            ctx.font = "".concat(subtitleLine2Height, "px ").concat(selectedFont);
+                            ctx.font = "".concat(subtitleLine2Height, "px body");
                             subtitleLine2Text = subtitleLine2;
                             subtitleLine2Dim = ctx.measureText(subtitleLine2Text);
                             subtitleLine2X = WIDTH * 0.5 - subtitleLine2Dim.width * 0.5;
