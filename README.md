@@ -17,8 +17,9 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 ### 0.0.5
 
 - [ ] Caching
-  - [ ] Generate hash from parameters
+  - [x] Generate hash from parameters
   - [ ] Save image name as hash (so it will reload it from cache)
+- [ ] Create TS type for config params
 - [ ] Auto layout center text including icon
 
 ### 0.0.4
@@ -28,7 +29,7 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 - [x] Random icon possibility (for demo purpose)
 - [x] Configurable font name
 - [x] Random font possibility
-- [ ] Add flag to show (or not) brand name (Codiscovery)
+- [ ] Add flag to show (or not) brand name
 - [ ] Fixed layout sizes
 
 - [x] Fix: On heroku, custom font is not loaded

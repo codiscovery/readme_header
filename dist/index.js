@@ -40,6 +40,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import Fastify from "fastify";
 import fastifyStatic from "fastify-static";
+import md5 from "md5";
 import generateImage from "./image/index.js";
 dotenv.config();
 var dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -52,14 +53,27 @@ var fastify = Fastify({
 fastify.register(fastifyStatic, {
     root: path.join(dirname, "..", "public"),
 });
+var getHashFromParams = function (params) {
+    // let hash = "";
+    var entries = Object.entries(params);
+    var keyValEqual = entries.map(function (keyVal) { return "".concat(keyVal[0], "=").concat(keyVal[1]); });
+    var keyValEncoded = keyValEqual.map(function (keyVal) { return encodeURI(keyVal); });
+    var sorted = keyValEncoded.sort();
+    var values = sorted.map(function (keyVal) { return keyVal.split("=")[1]; });
+    var joined = values.join("");
+    var hash = md5(joined);
+    console.log("hash", hash);
+    return hash;
+};
 var generateImageController = function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var key, params;
+    var key, params, hash;
     var _a, _b, _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
                 key = request.method === "POST" ? "body" : "query";
                 params = request[key];
+                hash = getHashFromParams(params);
                 return [4 /*yield*/, generateImage({
                         // @ts-ignore
                         title: params.title,

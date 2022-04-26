@@ -6,8 +6,10 @@ import { fileURLToPath } from "url";
 
 import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import fastifyStatic from "fastify-static";
+import md5 from "md5";
 
 import generateImage from "./image/index.js";
+import { Hash } from "crypto";
 
 dotenv.config();
 
@@ -25,13 +27,32 @@ fastify.register(fastifyStatic, {
   root: path.join(dirname, "..", "public"),
 });
 
+const getHashFromParams = (params: { [key: string]: string }) => {
+  // let hash = "";
+  const entries = Object.entries(params);
+  const keyValEqual = entries.map((keyVal) => `${keyVal[0]}=${keyVal[1]}`);
+  const keyValEncoded = keyValEqual.map((keyVal) => encodeURI(keyVal));
+  const sorted = keyValEncoded.sort();
+  const values = sorted.map((keyVal) => keyVal.split("=")[1]);
+  const joined = values.join("");
+  const hash = md5(joined);
+
+  // console.log("hash", hash);
+
+  return hash;
+};
+
 const generateImageController = async (
   request: FastifyRequest,
   response: FastifyReply
 ) => {
   const key = request.method === "POST" ? "body" : "query";
-  const params = request[key];
+  const params: { [key: string]: string } = request[key] as {
+    [key: string]: string;
+  };
+  const hash = getHashFromParams(params);
   await generateImage({
+    hash,
     // @ts-ignore
     title: params.title,
     // @ts-ignore
