@@ -41,7 +41,7 @@ import path from "path";
 // @ts-ignore
 import pkg from "canvas";
 import { fileURLToPath } from "url";
-var registerFont = pkg.registerFont, loadImage = pkg.loadImage;
+var loadImage = pkg.loadImage;
 import getCanvas from "./getCanvas.js";
 import getFont from "./getFont.js";
 import drawRoundRect from "./drawRoundRect.js";
@@ -51,11 +51,11 @@ import getRandomColor from "./getRandomIconColor.js";
 import colors from "./colors.js";
 var generateImage = function (params) {
     return new Promise(function (resolve) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, title, _b, technologies, _c, subtitleLine1, _d, subtitleLine2, _e, iconColor, _f, iconUrl, _g, iconWidth, _h, iconOffsetTop, _j, iconOffsetBottom, _k, iconOffsetLeft, _l, iconOffsetRight, _m, fontName, _o, iconName, _p, titleColor, WIDTH, HEIGHT, _q, canvas, ctx, cnv, iconCanvas, iconCtx, stream, dirname, filename, out, iconSelectedColor, iconY, iconH, icon, iconFilename, iconW, iconX, iconGradientW, iconGradientH, iconGradientX, iconGradientY, iconGradient_1, technoHeight, technoY, technoPadding, technoText, technoDim, technoX, textHeight, titlePadding, titleDim, titleY, titleX, gradientX, gradientY, gradientW, gradientH, gradient, subtitleLine1Height, subtitleLine1Padding, subtitleLine1Text, subtitleLine1Dim, subtitleLine1X, subtitleLine1Y, subtitleLine2Height, subtitleLine2Padding, subtitleLine2Text, subtitleLine2Dim, subtitleLine2X, subtitleLine2Y;
+        var _a, title, _b, technologies, _c, subtitleLine1, _d, subtitleLine2, _e, iconColor, _f, iconUrl, _g, iconWidth, _h, iconOffsetTop, _j, iconOffsetBottom, _k, iconOffsetLeft, _l, iconOffsetRight, _m, fontName, hash, _o, iconName, _p, titleColor, WIDTH, HEIGHT, _q, canvas, ctx, cnv, iconCanvas, iconCtx, stream, dirname, publicDir, filename, out, iconSelectedColor, iconY, iconH, icon, iconFilename, iconW, iconX, iconGradientW, iconGradientH, iconGradientX, iconGradientY, iconGradient_1, technoHeight, technoY, technoPadding, technoText, technoDim, technoX, textHeight, titlePadding, titleDim, titleY, titleX, gradientX, gradientY, gradientW, gradientH, gradient, subtitleLine1Height, subtitleLine1Padding, subtitleLine1Text, subtitleLine1Dim, subtitleLine1X, subtitleLine1Y, subtitleLine2Height, subtitleLine2Padding, subtitleLine2Text, subtitleLine2Dim, subtitleLine2X, subtitleLine2Y;
         return __generator(this, function (_r) {
             switch (_r.label) {
                 case 0:
-                    _a = params.title, title = _a === void 0 ? "Sans titre" : _a, _b = params.technologies, technologies = _b === void 0 ? [] : _b, _c = params.subtitleLine1, subtitleLine1 = _c === void 0 ? "" : _c, _d = params.subtitleLine2, subtitleLine2 = _d === void 0 ? "" : _d, _e = params.iconColor, iconColor = _e === void 0 ? [] : _e, _f = params.iconUrl, iconUrl = _f === void 0 ? "" : _f, _g = params.iconWidth, iconWidth = _g === void 0 ? 80 : _g, _h = params.iconOffsetTop, iconOffsetTop = _h === void 0 ? 0 : _h, _j = params.iconOffsetBottom, iconOffsetBottom = _j === void 0 ? 0 : _j, _k = params.iconOffsetLeft, iconOffsetLeft = _k === void 0 ? 0 : _k, _l = params.iconOffsetRight, iconOffsetRight = _l === void 0 ? 0 : _l, _m = params.fontName, fontName = _m === void 0 ? "" : _m;
+                    _a = params.title, title = _a === void 0 ? "Sans titre" : _a, _b = params.technologies, technologies = _b === void 0 ? [] : _b, _c = params.subtitleLine1, subtitleLine1 = _c === void 0 ? "" : _c, _d = params.subtitleLine2, subtitleLine2 = _d === void 0 ? "" : _d, _e = params.iconColor, iconColor = _e === void 0 ? [] : _e, _f = params.iconUrl, iconUrl = _f === void 0 ? "" : _f, _g = params.iconWidth, iconWidth = _g === void 0 ? 80 : _g, _h = params.iconOffsetTop, iconOffsetTop = _h === void 0 ? 0 : _h, _j = params.iconOffsetBottom, iconOffsetBottom = _j === void 0 ? 0 : _j, _k = params.iconOffsetLeft, iconOffsetLeft = _k === void 0 ? 0 : _k, _l = params.iconOffsetRight, iconOffsetRight = _l === void 0 ? 0 : _l, _m = params.fontName, fontName = _m === void 0 ? "" : _m, hash = params.hash;
                     _o = params.iconName, iconName = _o === void 0 ? "" : _o, _p = params.titleColor, titleColor = _p === void 0 ? [] : _p;
                     WIDTH = 1280;
                     HEIGHT = 640;
@@ -72,7 +72,8 @@ var generateImage = function (params) {
                     iconCtx = cnv.ctx;
                     stream = canvas.createPNGStream();
                     dirname = path.dirname(fileURLToPath(import.meta.url));
-                    filename = path.join(dirname, "../..", "/public/images/test.png");
+                    publicDir = path.join(dirname, "../../public");
+                    filename = path.join(publicDir, "/images/".concat(hash, ".png"));
                     out = fs.createWriteStream(filename);
                     // Background
                     ctx.fillStyle = "white";
@@ -128,7 +129,6 @@ var generateImage = function (params) {
                         iconSelectedColor.forEach(function (color, index, arr) {
                             return iconGradient_1.addColorStop((1 / arr.length) * index, color);
                         });
-                        // iconCtx.fillStyle = "black";
                         iconCtx.fillStyle = iconGradient_1;
                         iconCtx.fillRect(iconGradientX, iconGradientY - iconOffsetTop, iconGradientW, iconGradientH);
                         iconCtx.globalCompositeOperation = "destination-atop";
@@ -136,31 +136,6 @@ var generateImage = function (params) {
                         iconH -= iconOffsetBottom;
                         ctx.drawImage(iconCanvas, 0, iconOffsetTop, WIDTH, HEIGHT);
                     }
-                    // const titleFontLocation = path.join(
-                    //   dirname,
-                    //   "../..",
-                    //   "/public/fonts/Montserrat/Montserrat-Bold.ttf"
-                    // );
-                    // const bodyFontLocation = path.join(
-                    //   dirname,
-                    //   "../..",
-                    //   "/public/fonts/Montserrat/Montserrat-Regular.ttf"
-                    // );
-                    // registerFont(bodyFontLocation, { family: "Montserrat" });
-                    // registerFont(titleFontLocation, { family: "Montserrat-Bold" });
-                    // const robotoTitleFontLocation = path.join(
-                    //   dirname,
-                    //   "../..",
-                    //   "/public/fonts/roboto/Roboto-Bold.ttf"
-                    // );
-                    // const robotoBodyFontLocation = path.join(
-                    //   dirname,
-                    //   "../..",
-                    //   "/public/fonts/roboto/Roboto-Medium.ttf"
-                    // );
-                    // console.log("robotoBodyFontLocation", robotoBodyFontLocation);
-                    // registerFont(robotoBodyFontLocation, { family: "body" });
-                    // registerFont(robotoTitleFontLocation, { family: "title" });
                     ctx.fillStyle = "black";
                     technoHeight = 36;
                     technoY = 0;
@@ -190,13 +165,9 @@ var generateImage = function (params) {
                     titleColor.forEach(function (color, index, arr) {
                         return gradient.addColorStop((1 / arr.length) * index, color);
                     });
-                    // gradient.addColorStop(1, "green");
-                    // Set the fill style and draw a rectangle
                     ctx.fillStyle = gradient;
-                    // ctx.fillRect(gradientX, gradientY, gradientW, gradientH);
                     ctx.fillText(title, titleX, titleY);
                     ctx.fillStyle = "black";
-                    // http://localhost:3003/api/actions/generate-image?title=Turbo%20Secure%20Storage&technologies=React+Native&subtitleLine1=Turbo%20Module%20for%20securely%20storing%20data&subtitleLine2=via%20iOS%20Keychain%20and%20Android%20Keystore
                     // Subtitle
                     if (subtitleLine1.length) {
                         subtitleLine1Height = 20;
@@ -220,7 +191,7 @@ var generateImage = function (params) {
                     }
                     stream.pipe(out);
                     out.on("finish", function () {
-                        console.log("The PNG file was created");
+                        // console.log("The PNG file was created");
                         resolve(filename);
                     });
                     return [2 /*return*/];
@@ -229,6 +200,3 @@ var generateImage = function (params) {
     }); });
 };
 export default generateImage;
-/**
- * bg-gradient-to-tl from-pink-500 via-red-500 to-yellow-500
- */

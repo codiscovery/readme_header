@@ -41,10 +41,12 @@ import { fileURLToPath } from "url";
 import Fastify from "fastify";
 import fastifyStatic from "fastify-static";
 import md5 from "md5";
+import updateImages from "./storage/updateImages.js";
+import upload from "./storage/upload.js";
 import generateImage from "./image/index.js";
 dotenv.config();
 var dirname = path.dirname(fileURLToPath(import.meta.url));
-var _a = process.env, PORT = _a.PORT, NODE_ENV = _a.NODE_ENV;
+var _a = process.env, PORT = _a.PORT, NODE_ENV = _a.NODE_ENV, CLOUDINARY_BASE_URL = _a.CLOUDINARY_BASE_URL, IMAGE_HEIGHT = _a.IMAGE_HEIGHT, IMAGE_WIDTH = _a.IMAGE_WIDTH;
 var fastify = Fastify({
     logger: {
         prettyPrint: NODE_ENV !== "production",
@@ -52,6 +54,11 @@ var fastify = Fastify({
 });
 fastify.register(fastifyStatic, {
     root: path.join(dirname, "..", "public"),
+});
+var images = [];
+updateImages().then(function (img) {
+    images = img;
+    // console.log("🚀 ~ file: index.ts ~ line 35 ~ updateImages ~ images", images);
 });
 var getHashFromParams = function (params) {
     // let hash = "";
@@ -62,11 +69,14 @@ var getHashFromParams = function (params) {
     var values = sorted.map(function (keyVal) { return keyVal.split("=")[1]; });
     var joined = values.join("");
     var hash = md5(joined);
-    console.log("hash", hash);
+    // console.log("hash", hash);
     return hash;
 };
+var getStorageAssetUrlByHash = function (hash) {
+    return "".concat(CLOUDINARY_BASE_URL, "/").concat(hash, ".png");
+};
 var generateImageController = function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var key, params, hash;
+    var key, params, hash, storageAssetUrl, filePath, imageUrl;
     var _a, _b, _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
@@ -74,39 +84,45 @@ var generateImageController = function (request, response) { return __awaiter(vo
                 key = request.method === "POST" ? "body" : "query";
                 params = request[key];
                 hash = getHashFromParams(params);
+                return [4 /*yield*/, images.includes(hash)];
+            case 1:
+                if (_d.sent()) {
+                    storageAssetUrl = getStorageAssetUrlByHash(hash);
+                    // console.log("CACHED IMAGE");
+                    response.redirect(storageAssetUrl);
+                    return [2 /*return*/];
+                }
                 return [4 /*yield*/, generateImage({
-                        // @ts-ignore
+                        hash: hash,
                         title: params.title,
-                        // @ts-ignore
                         technologies: (_a = params.technologies) === null || _a === void 0 ? void 0 : _a.split(","),
-                        // @ts-ignore
                         subtitleLine1: params.subtitleLine1,
-                        // @ts-ignore
                         subtitleLine2: params.subtitleLine2,
-                        // @ts-ignore
                         iconName: params.iconName,
-                        // @ts-ignore
                         iconColor: (_b = params.iconColor) === null || _b === void 0 ? void 0 : _b.split(","),
-                        // @ts-ignore
                         titleColor: (_c = params.titleColor) === null || _c === void 0 ? void 0 : _c.split(","),
-                        // @ts-ignore
                         iconUrl: params.iconUrl,
-                        // @ts-ignore
                         iconWidth: params.iconWidth ? Number(params.iconWidth) : undefined,
-                        // @ts-ignore
                         iconOffsetTop: params.iconOffsetTop,
-                        // @ts-ignore
                         iconOffsetBottom: params.iconOffsetBottom,
-                        // @ts-ignore
                         iconOffsetLeft: params.iconOffsetLeft,
-                        // @ts-ignore
                         iconOffsetRight: params.iconOffsetRight,
-                        // @ts-ignore
                         fontName: params.fontName,
                     })];
-            case 1:
+            case 2:
+                filePath = _d.sent();
+                // console.log("filePath", filePath);
+                return [4 /*yield*/, upload(filePath, {
+                        width: IMAGE_WIDTH,
+                        height: IMAGE_HEIGHT,
+                        hash: hash,
+                    })];
+            case 3:
+                // console.log("filePath", filePath);
                 _d.sent();
-                response.redirect("/images/test.png");
+                imageUrl = getStorageAssetUrlByHash(hash);
+                // console.log("NEWLY UPLOADED IMAGE");
+                response.redirect(imageUrl);
                 return [2 /*return*/];
         }
     });

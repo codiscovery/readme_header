@@ -5,7 +5,7 @@ import path from "path";
 // @ts-ignore
 import pkg from "canvas";
 import { fileURLToPath } from "url";
-const { registerFont, loadImage } = pkg;
+const { loadImage } = pkg;
 
 import getCanvas from "./getCanvas.js";
 import getFont from "./getFont.js";
@@ -14,8 +14,9 @@ import loadImageByUrl from "./loadImageByUrl.js";
 import getRandomIcon from "./getRandomIcon.js";
 import getRandomColor from "./getRandomIconColor.js";
 import colors from "./colors.js";
+import ImageConfig from "../types/ImageConfig.js";
 
-const generateImage = (params: any) => {
+const generateImage = (params: any): Promise<string> => {
   return new Promise(async (resolve) => {
     const {
       title = "Sans titre",
@@ -30,20 +31,8 @@ const generateImage = (params: any) => {
       iconOffsetLeft = 0,
       iconOffsetRight = 0,
       fontName = "",
-    }: {
-      title?: string;
-      technologies?: string[];
-      subtitleLine1: string;
-      subtitleLine2: string;
-      iconColor: string[];
-      iconUrl: string;
-      iconWidth: number;
-      iconOffsetTop: number;
-      iconOffsetBottom: number;
-      iconOffsetLeft: number;
-      iconOffsetRight: number;
-      fontName: string;
-    } = params;
+      hash,
+    }: ImageConfig = params;
 
     let {
       iconName = "",
@@ -73,8 +62,8 @@ const generateImage = (params: any) => {
 
     const stream = canvas.createPNGStream();
     const dirname = path.dirname(fileURLToPath(import.meta.url));
-    // console.log("src/image dirname", dirname);
-    const filename = path.join(dirname, "../..", `/public/images/test.png`);
+    const publicDir = path.join(dirname, "../../public");
+    const filename = path.join(publicDir, `/images/${hash}.png`);
     const out = fs.createWriteStream(filename);
 
     // Background
@@ -112,11 +101,9 @@ const generateImage = (params: any) => {
         `/public/icons/solid/${iconName}.svg`
       );
       icon = await loadImage(iconFilename);
-      // console.log("---iconFilename", iconFilename);
     }
     if (iconUrl.length) {
       icon = await loadImageByUrl(iconUrl);
-      // console.log("icon iconUrl", icon);
     }
     if (icon) {
       const iconW = iconWidth;
@@ -141,7 +128,6 @@ const generateImage = (params: any) => {
         iconGradient.addColorStop((1 / arr.length) * index, color)
       );
 
-      // iconCtx.fillStyle = "black";
       iconCtx.fillStyle = iconGradient;
       iconCtx.fillRect(
         iconGradientX,
@@ -163,32 +149,6 @@ const generateImage = (params: any) => {
 
       ctx.drawImage(iconCanvas, 0, iconOffsetTop, WIDTH, HEIGHT);
     }
-
-    // const titleFontLocation = path.join(
-    //   dirname,
-    //   "../..",
-    //   "/public/fonts/Montserrat/Montserrat-Bold.ttf"
-    // );
-    // const bodyFontLocation = path.join(
-    //   dirname,
-    //   "../..",
-    //   "/public/fonts/Montserrat/Montserrat-Regular.ttf"
-    // );
-    // registerFont(bodyFontLocation, { family: "Montserrat" });
-    // registerFont(titleFontLocation, { family: "Montserrat-Bold" });
-    // const robotoTitleFontLocation = path.join(
-    //   dirname,
-    //   "../..",
-    //   "/public/fonts/roboto/Roboto-Bold.ttf"
-    // );
-    // const robotoBodyFontLocation = path.join(
-    //   dirname,
-    //   "../..",
-    //   "/public/fonts/roboto/Roboto-Medium.ttf"
-    // );
-    // console.log("robotoBodyFontLocation", robotoBodyFontLocation);
-    // registerFont(robotoBodyFontLocation, { family: "body" });
-    // registerFont(robotoTitleFontLocation, { family: "title" });
 
     ctx.fillStyle = "black";
     // Technology
@@ -229,17 +189,13 @@ const generateImage = (params: any) => {
     titleColor.forEach((color, index, arr) =>
       gradient.addColorStop((1 / arr.length) * index, color)
     );
-    // gradient.addColorStop(1, "green");
 
-    // Set the fill style and draw a rectangle
     ctx.fillStyle = gradient;
-    // ctx.fillRect(gradientX, gradientY, gradientW, gradientH);
 
     ctx.fillText(title, titleX, titleY);
 
     ctx.fillStyle = "black";
 
-    // http://localhost:3003/api/actions/generate-image?title=Turbo%20Secure%20Storage&technologies=React+Native&subtitleLine1=Turbo%20Module%20for%20securely%20storing%20data&subtitleLine2=via%20iOS%20Keychain%20and%20Android%20Keystore
     // Subtitle
     if (subtitleLine1.length) {
       const subtitleLine1Height = 20;
@@ -266,7 +222,7 @@ const generateImage = (params: any) => {
     stream.pipe(out);
 
     out.on("finish", () => {
-      console.log("The PNG file was created");
+      // console.log("The PNG file was created");
       resolve(filename);
     });
     // });
@@ -274,7 +230,3 @@ const generateImage = (params: any) => {
 };
 
 export default generateImage;
-
-/**
- * bg-gradient-to-tl from-pink-500 via-red-500 to-yellow-500
- */

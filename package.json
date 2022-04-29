@@ -1,6 +1,6 @@
 {
   "name": "codiscovery_readme_header",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/md5": "^2.3.2",
     "canvas": "^2.9.1",
+    "cloudinary": "^1.29.1",
     "dotenv": "^16.0.0",
     "fastify": "^3.28.0",
     "fastify-static": "^4.6.1",

@@ -8,19 +8,37 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 
 ## Utilisation
 
+## Installation
+
+### Variables d'environnements
+
+- `NODE_ENV`
+- `PORT`
+- `CLOUDINARY_APP_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+
 ## Roadmap
 
-### 0.0.6
+- [ ] Create tests
+- [ ] Delete images that have been uploaded for the past n days (to let some space)
+- [ ] Create TS type for config params
+- [ ] Auto layout center text including icon
+- [ ] Add flag to show (or not) brand name
+- [ ] Fixed layout sizes
+- [ ] Fix: Random font only at startup. Try registering all fonts then randomize `ctx.font` call
 
-- [ ] Upload image to Cloudinary
+## Changelog
+
+### 0.1.0
+
+- [x] Upload image to Cloudinary
 
 ### 0.0.5
 
-- [ ] Caching
+- [x] Caching
   - [x] Generate hash from parameters
-  - [ ] Save image name as hash (so it will reload it from cache)
-- [ ] Create TS type for config params
-- [ ] Auto layout center text including icon
+  - [x] Save image name as hash (so it will reload it from cache)
 
 ### 0.0.4
 
@@ -29,13 +47,8 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 - [x] Random icon possibility (for demo purpose)
 - [x] Configurable font name
 - [x] Random font possibility
-- [ ] Add flag to show (or not) brand name
-- [ ] Fixed layout sizes
 
 - [x] Fix: On heroku, custom font is not loaded
-- [ ] Fix: Random font only at startup. Try registering all fonts then randomize `ctx.font` call
-
-## Changelog
 
 ### 0.0.3
 
