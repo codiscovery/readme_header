@@ -17,14 +17,17 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 - `CLOUDINARY_APP_NAME`
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
+- `CLOUDINARY_BASE_URL`
+- `IMAGE_WIDTH`
+- `IMAGE_HEIGHT`
 
 ## Roadmap
 
+- [ ] Add flag to show (or not) brand name
+
 - [ ] Create tests
 - [ ] Delete images that have been uploaded for the past n days (to let some space)
-- [ ] Create TS type for config params
 - [ ] Auto layout center text including icon
-- [ ] Add flag to show (or not) brand name
 - [ ] Fixed layout sizes
 - [ ] Fix: Random font only at startup. Try registering all fonts then randomize `ctx.font` call
 
@@ -32,6 +35,7 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 
 ### 0.1.0
 
+- [x] Create TS type for config params
 - [x] Upload image to Cloudinary
 
 ### 0.0.5
