@@ -1,13 +1,17 @@
 # Readme image generator
 
-![header](https://codiscovery-readme-header.herokuapp.com/api/actions/generate-image?titleColor=fydji&iconName=images&title=README%20Header%20Image&subtitleLine1=Générer%20une%20image%20à%20partir%20d'une%20URL&subtitleLine2=URL%20que%20vous%20pouvez%20mettre%20à%20jour%20directement%20dans%20ce%20README&technologies=Fastify,Canvas)
+![Problème temporaire, veuillez recharger la page pour voir l'image](https://codiscovery-readme-header.herokuapp.com/api/actions/generate-image?titleColor=fydji&iconName=images&title=README%20Header%20Image&subtitleLine1=Générer%20une%20image%20à%20partir%20d'une%20URL&subtitleLine2=URL%20que%20vous%20pouvez%20mettre%20à%20jour%20directement%20dans%20ce%20README&technologies=Fastify,Canvas)
 
 Pour présenter vos projets Github, utiliser un lien qui génère une image dans votre README
 
 ## Exemple
 
-URL qui génère l'image ci-dessus :
+1 - Voici l'URL qui génère l'image ci-dessus :
 `https://codiscovery-readme-header.herokuapp.com/api/actions/generate-image?titleColor=fydji&iconName=images&title=README%20Header%20Image&subtitleLine1=Générer%20une%20image%20à%20partir%20d'une%20URL&subtitleLine2=URL%20que%20vous%20pouvez%20mettre%20à%20jour%20directement%20dans%20ce%20README&technologies=Fastify,Canvas`
+
+2 - Pour afficher une image dans le README il faut mettre : `![nom](URL)`
+
+3 - On mixe l'URL et l'affichage de l'image : `![header](https://codiscovery-readme-header.herokuapp.com/api/actions/generate-image?titleColor=fydji&iconName=images&title=README%20Header%20Image&subtitleLine1=Générer%20une%20image%20à%20partir%20d'une%20URL&subtitleLine2=URL%20que%20vous%20pouvez%20mettre%20à%20jour%20directement%20dans%20ce%20README&technologies=Fastify,Canvas)`
 
 ## Utilisation
 
