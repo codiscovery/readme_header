@@ -6,7 +6,7 @@ import fonts from "./fonts.js";
 const { registerFont } = pkg;
 
 const getFontName = (name: string = "") => {
-  let fontName = "lato";
+  let fontName = "montserrat";
   if (name === "random") {
     const fontNames = Object.keys(fonts);
     const randomFontIndex = Math.floor(Math.random() * fontNames.length);
