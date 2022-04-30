@@ -22,14 +22,14 @@ Pour présenter vos projets Github, utiliser un lien qui génère une image dans
 
 Paramètres d'URL (valeurs obligatoires) :
 
-| Clé           |  Valeur                                                                                                                                                           | Possibilités                    |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| title         | Votre titre au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)                                    | `README%20Header%20Image`       |
-| iconName      | [Nom de l'icône de Font awesome](https://fontawesome.com/search?m=free)                                                                                           | `dog` ou `cat`                  |
-| titleColor    | Couleurs HTML séparés par des virgules sans espaces                                                                                                               | `red,orange`, `#FF0000,#FFA500` |
-| technologies  | Chaînes de caractères séparés par des virgules au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) | `JavaScript`, `JavaScript,PHP`  |
-| subtitleLine1 | Votre 1ère ligne de sous-titre au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)                 | `JavaScript`, `JavaScript,PHP`  |
-| subtitleLine2 | Votre 2ème ligne de sous-titre au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)                 | `JavaScript`, `JavaScript,PHP`  |
+| Clé           |  Valeur                                                                                                                                                           | Possibilités                      |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| title         | Votre titre au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)                                    | `README%20Header%20Image`         |
+| iconName      | [Nom de l'icône de Font awesome](https://fontawesome.com/search?m=free)                                                                                           | `dog` ou `cat`                    |
+| titleColor    | Couleurs HTML séparés par des virgules sans espaces                                                                                                               | `red,orange`, `#FF0000,#FFA500`   |
+| technologies  | Chaînes de caractères séparés par des virgules au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) | `JavaScript`, `JavaScript,PHP`    |
+| subtitleLine1 | Votre 1ère ligne de sous-titre au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)                 | `Ma première ligne de sous titre` |
+| subtitleLine2 | Votre 2ème ligne de sous-titre au format [d'URL encodée](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)                 | `Ma 2ème ligne de sous titre`     |
 
 ## Installation
 
